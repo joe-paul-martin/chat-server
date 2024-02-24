@@ -45,13 +45,14 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("client device connected")
 
+	go reader(ws)
+
 	err = ws.WriteMessage(1, []byte("hello client device"))
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	reader(ws)
 }
 
 func setupRoutes() {
